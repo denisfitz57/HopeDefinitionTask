@@ -60,7 +60,11 @@ var sequence = [
     "severity",
     "vicinity",
 ];
-shuffle(sequence);
+newseq = [];
+for (const [index, element] of sequence.entries()) {
+    newseq.push([index, element]);
+}
+shuffle(newseq);
 //Go through the file sequence and add an audio-keyboard-response object for each file
 var experimentTimeline = [];
 
@@ -86,7 +90,7 @@ var trialIndex = 0;
 for (trialIndex = 0; trialIndex < sequence.length; trialIndex++) {
     var soundTrial = {
         type: "audio-keyboard-response",
-        stimulus: "Sp_" + sequence[trialIndex].toLowerCase() + ".wav",
+        stimulus: String(newseq[trialIndex][0]) + ".wav",
         autoplay: true,
         choices: [],
         trial_ends_after_audio: true,
