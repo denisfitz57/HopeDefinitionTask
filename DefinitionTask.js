@@ -60,7 +60,7 @@ var sequence = [
     "severity",
     "vicinity",
 ];
-newseq = [];
+var newseq = [];
 for (const [index, element] of sequence.entries()) {
     newseq.push([index, element]);
 }
