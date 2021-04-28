@@ -79,7 +79,7 @@ experimentTimeline = experimentTimeline.concat(getIdTrial);
 var instructionScreen = {
     type: "instructions",
     pages: [
-        "Listen to each word and do your best to type the definition fo what you heard. You can't change what you type so be careful",
+        "Listen to each word and do your best to type the definition for what you heard. You can't change what you type so be careful",
     ],
     show_clickable_nav: true,
 };
@@ -99,8 +99,8 @@ for (trialIndex = 0; trialIndex < sequence.length; trialIndex++) {
     experimentTimeline = experimentTimeline.concat(soundTrial);
     var form_trial = {
         type: "survey-html-form",
-        preamble: "<p> Please spell the word you just heard </p>",
-        html: '<p> I heard: <input id="word-response-box" name="word" type="text" spellcheck="false" autocomplete="off" onKeyDown="myKeyFilter()" /></p>',
+        preamble: "<p> Please define the word you just heard </p>",
+        html: '<p> My definition is: <input id="word-response-box" name="word" size="250" type="text" spellcheck="false" autocomplete="off" onKeyDown="myKeyFilter()" /></p>',
         autofocus: "word-response-box",
     };
     experimentTimeline = experimentTimeline.concat(form_trial);
