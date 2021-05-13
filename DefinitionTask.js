@@ -10,18 +10,6 @@
 //This GET request will work locally only if you are running a local web
 //server to handle the request, JS by default doesn't let you get local files
 //as that could be a major security issue.
-function myKeyFilter() {
-    //to prevent subjects from editing their response
-    var e = event || window.event; // get event object
-    var key = e.keyCode || e.which; // get key cross-browser
-
-    if (key == 8 || key == 39 || key == 37) {
-        //if it is not a number ascii code
-        //Prevent default action, which is inserting character
-        if (e.preventDefault) e.preventDefault(); //normal browsers
-        e.returnValue = false; //IE
-    }
-}
 
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -61,11 +49,7 @@ var wavlist = [
     "worddef_vicinity.wav",
 ];
 
-var newseq = [];
-for (const [index, element] of sequence.entries()) {
-    newseq.push([index, element]);
-}
-shuffle(newseq);
+shuffle(wavlist);
 //Go through the file sequence and add an audio-keyboard-response object for each file
 var experimentTimeline = [];
 
@@ -85,7 +69,7 @@ experimentTimeline = experimentTimeline.concat(getIdTrial);
 var instructionScreen = {
     type: "instructions",
     pages: [
-        "We are asking you to quickly define some words. Each word will be presented alone and then in a sentence. After you have heard the sentence a text box will appear. Please write a brief definition for the word you heard. You will not be able to edit your text as you enter it. Please do not use any dictionaries or ask for help defining these words. ",
+        "We are asking you to quickly define some words. Each word will be presented alone and then in a sentence. After you have heard the sentence a text box will appear. Please write a brief definition for the word you heard. Please do not use any dictionaries or ask for help defining these words. ",
     ],
     show_clickable_nav: true,
 };
@@ -93,7 +77,7 @@ var instructionScreen = {
 experimentTimeline = experimentTimeline.concat(instructionScreen);
 
 var trialIndex = 0;
-for (trialIndex = 0; trialIndex < sequence.length; trialIndex++) {
+for (trialIndex = 0; trialIndex < wavlist.length; trialIndex++) {
     var soundTrial = {
         type: "audio-keyboard-response",
         stimulus: wavlist[trialIndex],
@@ -106,7 +90,7 @@ for (trialIndex = 0; trialIndex < sequence.length; trialIndex++) {
     var form_trial = {
         type: "survey-html-form",
         preamble: "<p> Please define the word you just heard </p>",
-        html: '<p> My definition is: <input id="word-response-box" name="word" size="150" type="text" spellcheck="false" autocomplete="off" onKeyDown="myKeyFilter()" /></p>',
+        html: '<p> My definition is: <input id="word-response-box" name="word" size="150" type="text" spellcheck="false" autocomplete="off" )" /></p>',
         autofocus: "word-response-box",
     };
     experimentTimeline = experimentTimeline.concat(form_trial);
@@ -121,7 +105,7 @@ experimentTimeline = experimentTimeline.concat(sequenceFinishedText);
 
 jsPsych.init({
     timeline: experimentTimeline,
-    preload: sequence,
+    preload: wavlist,
     on_finish: function() {
         window.close();
     },
