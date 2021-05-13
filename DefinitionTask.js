@@ -105,7 +105,7 @@ for (trialIndex = 0; trialIndex < sequence.length; trialIndex++) {
     var form_trial = {
         type: "survey-html-form",
         preamble: "<p> Please define the word you just heard </p>",
-        html: '<p> My definition is: <input id="word-response-box" name="word" size="250" type="text" spellcheck="false" autocomplete="off" onKeyDown="myKeyFilter()" /></p>',
+        html: '<p> My definition is: <input id="word-response-box" name="word" size="200" type="text" spellcheck="false" autocomplete="off" onKeyDown="myKeyFilter()" /></p>',
         autofocus: "word-response-box",
     };
     experimentTimeline = experimentTimeline.concat(form_trial);
