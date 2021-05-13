@@ -29,7 +29,7 @@ function shuffle(array) {
         [array[i], array[j]] = [array[j], array[i]];
     }
 }
-wavlist = [
+var wavlist = [
     "worddef_assortment.wav",
     "worddef_betrayal.wav",
     "worddef_conclusion.wav",
