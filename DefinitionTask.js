@@ -68,18 +68,23 @@ shuffle(newseq);
 //Go through the file sequence and add an audio-keyboard-response object for each file
 var experimentTimeline = [];
 
+var urlvar = jsPsych.data.urlVariables();
 var getIdTrial = {
-    type: "survey-html-form",
-    preamble: "<p> Enter the ID you have been given.</p>",
-    html: '<p> ID: <input type="text" id="test-resp-box" name="response" size="10" /></p>',
-    autofocus: "test-resp-box",
+    type: "survey-text",
+    questions: [{
+        prompt: "Enter the ID you have been given.",
+        placeholder: urlvar.subjectID,
+    }, ],
+    preamble: "",
+    button_label: "Click to enter ID",
 };
+
 experimentTimeline = experimentTimeline.concat(getIdTrial);
 
 var instructionScreen = {
     type: "instructions",
     pages: [
-        "Listen to each word and do your best to type the definition for what you heard. You can't change what you type so be careful",
+        "We are asking you to quickly define some words. Each word will be presented alone and then in a sentence. After you have heard the sentence a text box will appear. Please write a brief definition for the word you heard. You will not be able to edit your text as you enter it. Please do not use any dictionaries or ask for help defining these words. ",
     ],
     show_clickable_nav: true,
 };
@@ -116,4 +121,7 @@ experimentTimeline = experimentTimeline.concat(sequenceFinishedText);
 jsPsych.init({
     timeline: experimentTimeline,
     preload: sequence,
+    on_finish: function() {
+        window.close();
+    },
 });
