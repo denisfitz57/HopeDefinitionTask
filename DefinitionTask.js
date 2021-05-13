@@ -11,6 +11,19 @@
 //server to handle the request, JS by default doesn't let you get local files
 //as that could be a major security issue.
 
+function myKeyFilter() {
+    //to prevent subjects from editing their response
+    var e = event || window.event; // get event object
+    var key = e.keyCode || e.which; // get key cross-browser
+
+    if (key == 8 || key == 39 || key == 37) {
+        //if it is not a number ascii code
+        //Prevent default action, which is inserting character
+        if (e.preventDefault) e.preventDefault(); //normal browsers
+        e.returnValue = false; //IE
+    }
+}
+
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1)); // random index from 0 to i
@@ -90,7 +103,7 @@ for (trialIndex = 0; trialIndex < wavlist.length; trialIndex++) {
     var form_trial = {
         type: "survey-html-form",
         preamble: "<p> Please define the word you just heard </p>",
-        html: '<p> My definition is: <input id="word-response-box" name="word" size="150" type="text" spellcheck="false" autocomplete="off" )" /></p>',
+        html: '<p> My definition is: <input id="word-response-box" name="word" size="150" type="text" spellcheck="false" autocomplete="off"  onKeyDown="myKeyFilter())" /></p>',
         autofocus: "word-response-box",
     };
     experimentTimeline = experimentTimeline.concat(form_trial);
